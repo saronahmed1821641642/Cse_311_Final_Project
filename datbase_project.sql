@@ -1,3 +1,9 @@
+Create database [Media Platform DBMS]
+
+go
+use [Media Platform DBMS]
+go
+
 Create table Administrator
 (
 Admin_ID varchar(5) primary key,
@@ -12,7 +18,7 @@ phone int NOT NULL,
 email Varchar(15),
 password varchar(30) not null,
 Constraint pk_1 PRIMARY KEY(user_ID)
-); 
+)
 
 Create table Users(
 user_ID varchar(5) primary key,
@@ -30,6 +36,7 @@ password varchar(8)
 Constraint fk_3 FOREIGN KEY (user_ID)
 references Registration(user_ID)
 )
+
 Create table forget_password
 (
 user_ID varchar(5) primary key,
@@ -39,28 +46,31 @@ Constraint fk_4 FOREIGN KEY (user_ID)
 references Registration(user_ID)
 )
 
-create table Payment(
+create table Payment
+(
 user_ID varchar(5) NOT NULL,
 card_pin int not null,
 card_info varchar(30),
 Constraint pk_2 PRIMARY KEY(user_ID,card_pin,card_info)
-);
+)
  
 
- create table kid(
+ create table kid
+ (
  user_ID Varchar(5),
  user_Dob varchar(30),
- Constraint fk_2 foreign key(user_id,user_Dob)
- );
+ Constraint fk_2 foreign key(user_id)
+ references Registration(user_ID)
+ )
 
 create table adult(
  user_ID Varchar(5),
  user_Dob varchar(30),
+ Constraint fk_adult foreign key(user_id)
+ references Registration(user_ID)
+ )
 
-Constraint fk_2 foreign key(user_id,user_Dob)
- );
-
- Create table Media
+Create table Media
  ( 
  movie_name varchar(100),
  movie_data varchar(300),
@@ -70,6 +80,8 @@ Constraint fk_2 foreign key(user_id,user_Dob)
  movie_rating decimal(4,2),
  user_ID Varchar(5),
  Admin_ID varchar(5)
- Constraint fk_5 foreign key(user_id,Admin_ID)
- );
-
+ Constraint fk_5 foreign key(user_id)
+ references Registration(user_ID),
+ constraint fk_admim foreign key(Admin_ID)
+ references Administrator(Admin_ID)
+ )
